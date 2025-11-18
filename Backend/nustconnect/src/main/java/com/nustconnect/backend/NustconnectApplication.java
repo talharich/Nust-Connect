@@ -1,4 +1,4 @@
-package com.nust.nustconnect;
+package com.nustconnect.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
