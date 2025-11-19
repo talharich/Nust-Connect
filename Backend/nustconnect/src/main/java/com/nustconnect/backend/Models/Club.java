@@ -1,9 +1,14 @@
 package com.nustconnect.backend.Models;
 
+import com.nustconnect.backend.Enums.ClubCategory;
+import jakarta.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name="clubs")
 public class Club {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clubId;
 
     private String name;
@@ -13,9 +18,11 @@ public class Club {
     @JoinColumn(name="created_by")
     private User createdBy;
 
-    private String category; // academic / cultural / sports
+    @Enumerated(EnumType.STRING)
+    private ClubCategory category;
 
     @OneToMany(mappedBy="club", cascade=CascadeType.ALL)
     private List<Event> events;
-}
 
+    // getters and setters
+}

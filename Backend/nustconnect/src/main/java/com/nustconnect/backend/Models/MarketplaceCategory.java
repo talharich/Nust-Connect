@@ -3,16 +3,13 @@ package com.nustconnect.backend.Models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="venues")
-public class Venue {
+@Table(name="marketplace_category")
+public class MarketplaceCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long venueId;
+    private Long id;
 
     private String name;
-    private String location;
-    private Integer capacity;
-    private String availabilityStatus; // can be enum if desired
 
     // getters and setters
 }

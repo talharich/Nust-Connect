@@ -1,9 +1,14 @@
 package com.nustconnect.backend.Models;
 
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name="profiles")
 public class Profile {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileId;
 
     @OneToOne
@@ -19,4 +24,3 @@ public class Profile {
 
     // getters and setters
 }
-

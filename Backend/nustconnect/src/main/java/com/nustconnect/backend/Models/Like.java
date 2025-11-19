@@ -1,9 +1,15 @@
 package com.nustconnect.backend.Models;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name="likes")
+@Table(name="likes", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "post_id"})
+})
 public class Like {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long likeId;
 
     @ManyToOne
@@ -15,5 +21,11 @@ public class Like {
     private Post post;
 
     private LocalDateTime createdAt;
-}
 
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    // getters and setters
+}

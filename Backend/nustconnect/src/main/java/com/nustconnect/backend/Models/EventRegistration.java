@@ -1,9 +1,15 @@
 package com.nustconnect.backend.Models;
 
+import com.nustconnect.backend.Enums.EventRegistrationStatus;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name="event_registration")
 public class EventRegistration {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long registrationId;
 
     @ManyToOne
@@ -15,6 +21,15 @@ public class EventRegistration {
     private User user;
 
     private LocalDateTime registrationDate;
-    private String status; // registered / canceled / waitlisted
-}
 
+    @Enumerated(EnumType.STRING)
+    private EventRegistrationStatus status;
+
+    @PrePersist
+    protected void onCreate() {
+        if (status == null) status = EventRegistrationStatus.REGISTERED;
+        registrationDate = LocalDateTime.now();
+    }
+
+    // getters and setters
+}

@@ -1,31 +1,30 @@
 package com.nustconnect.backend.Models;
 
+import com.nustconnect.backend.Enums.ReportTargetType;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="comments")
-public class Comment {
+@Table(name="reports")
+public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="post_id", nullable=false)
-    private Post post;
+    private String reason;
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
-    private User user;
+    @Enumerated(EnumType.STRING)
+    private ReportTargetType targetType;
 
-    private String content;
+    private Long targetId;
+
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    private User reportedBy;
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-
-    // getters and setters
 }
