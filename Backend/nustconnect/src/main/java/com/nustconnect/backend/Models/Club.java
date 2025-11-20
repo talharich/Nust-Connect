@@ -21,6 +21,12 @@ public class Club {
     @Enumerated(EnumType.STRING)
     private ClubCategory category;
 
+    @OneToMany(mappedBy = "club")
+    private List<ClubMembership> members;
+
+    @Column(name = "is_approved")
+    private Boolean isApproved = false;
+
     @OneToMany(mappedBy="club", cascade=CascadeType.ALL)
     private List<Event> events;
 
