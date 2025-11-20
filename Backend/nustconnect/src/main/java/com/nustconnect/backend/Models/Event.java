@@ -36,6 +36,18 @@ public class Event {
     @OneToMany(mappedBy="event", cascade=CascadeType.ALL)
     private List<EventRegistration> registrations;
 
+    @Column(name = "ticket_price")
+    private Double ticketPrice; // For paid events
+
+    @Column(name = "has_tickets")
+    private Boolean hasTickets = false;
+
+    @Column(name = "requires_registration")
+    private Boolean requiresRegistration = true;
+
+    @Column(name = "qr_code_required")
+    private Boolean qrCodeRequired = false;
+
     @PrePersist
     protected void onCreate() {
         if (approvalStatus == null) approvalStatus = EventApprovalStatus.PENDING;
