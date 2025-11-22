@@ -27,12 +27,11 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    // Add these fields to User.java
     @Column(name = "student_id", unique = true)
-    private String studentId; // NUST student ID
+    private String studentId;
 
     @Column(name = "phone_number", length = 20)
-    private String phoneNumber; // For ride-sharing contact
+    private String phoneNumber;
 
     @NotBlank(message = "Name is required")
     @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
@@ -110,29 +109,4 @@ public class User extends BaseEntity {
     @Builder.Default
     private List<Friendship> followers = new ArrayList<>();
 
-    // Helper methods for bidirectional relationships
-//    public void addPost(Post post) {
-//        posts.add(post);
-//        post.setUser(this);
-//    }
-//
-//    public void removePost(Post post) {
-//        posts.remove(post);
-//        post.setUser(null);
-//    }
-//
-//    public void addComment(Comment comment) {
-//        comments.add(comment);
-//        comment.setUser(this);
-//    }
-//
-//    public void addLike(Like like) {
-//        likes.add(like);
-//        like.setUser(this);
-//    }
-//
-//    public void removeLike(Like like) {
-//        likes.remove(like);
-//        like.setUser(null);
-//    }
 }
