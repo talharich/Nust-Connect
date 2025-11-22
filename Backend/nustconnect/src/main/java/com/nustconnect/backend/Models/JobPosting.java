@@ -8,10 +8,9 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-// ============== JobPosting.java ==============
 @Entity
 @Table(name = "job_posting", indexes = {
-        @Index(name = "idx_posted_date", columnList = "posted_at"),
+        @Index(name = "idx_created_date", columnList = "created_at"),  // ← FIXED from posted_at
         @Index(name = "idx_type_status", columnList = "job_type, status")
 })
 @Getter

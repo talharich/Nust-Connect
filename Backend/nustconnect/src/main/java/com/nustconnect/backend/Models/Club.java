@@ -3,6 +3,7 @@ package com.nustconnect.backend.Models;
 import com.nustconnect.backend.Enums.ClubCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -44,6 +45,7 @@ public class Club extends BaseEntity {
     @JoinColumn(name = "created_by")
     private User createdBy;
 
+    @NotNull(message = "Category is required")  // ← ADDED
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private ClubCategory category;

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "announcement", indexes = {
-        @Index(name = "idx_posted_date", columnList = "posted_at"),
+        @Index(name = "idx_created_date", columnList = "created_at"),  // ← FIXED from posted_at
         @Index(name = "idx_priority", columnList = "priority")
 })
 @Getter

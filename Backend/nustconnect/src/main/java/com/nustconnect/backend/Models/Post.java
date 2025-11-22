@@ -68,32 +68,28 @@ public class Post extends BaseEntity {
     @Builder.Default
     private List<Like> likes = new ArrayList<>();
 
-    // Helper methods
-    public void addComment(Comment comment) {
-        comments.add(comment);
-        comment.setPost(this);
-        this.commentCount = comments.size();
-    }
-
-    public void removeComment(Comment comment) {
-        comments.remove(comment);
-        comment.setPost(null);
-        this.commentCount = comments.size();
-    }
-
-    public void addLike(Like like) {
-        likes.add(like);
-        like.setPost(this);
-        this.likeCount = likes.size();
-    }
-
-    public void removeLike(Like like) {
-        likes.remove(like);
-        like.setPost(null);
-        this.likeCount = likes.size();
-    }
-
+    // Helper methods - simplified
     public void markAsEdited() {
         this.isEdited = true;
+    }
+
+    public void incrementLikeCount() {
+        this.likeCount++;
+    }
+
+    public void decrementLikeCount() {
+        if (this.likeCount > 0) {
+            this.likeCount--;
+        }
+    }
+
+    public void incrementCommentCount() {
+        this.commentCount++;
+    }
+
+    public void decrementCommentCount() {
+        if (this.commentCount > 0) {
+            this.commentCount--;
+        }
     }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "marketplace_item", indexes = {
         @Index(name = "idx_category_status", columnList = "category_id, status"),
-        @Index(name = "idx_seller_posted", columnList = "seller_id, posted_at"),
+        @Index(name = "idx_seller_created", columnList = "seller_id, created_at"),  // ← CHANGED from posted_at
         @Index(name = "idx_status", columnList = "status")
 })
 @SQLDelete(sql = "UPDATE marketplace_item SET deleted_at = NOW() WHERE id = ?")
@@ -49,6 +49,7 @@ public class MarketplaceItem extends BaseEntity {
     @Column(nullable = false)
     private Double price;
 
+    @NotNull(message = "Condition is required")  // ← ADDED
     @Enumerated(EnumType.STRING)
     @Column(name = "condition_status", nullable = false, length = 20)
     private MarketplaceCondition conditionStatus;
@@ -58,8 +59,7 @@ public class MarketplaceItem extends BaseEntity {
     @Builder.Default
     private MarketplaceItemStatus status = MarketplaceItemStatus.AVAILABLE;
 
-    @Column(name = "posted_at")
-    private LocalDateTime postedAt;
+    // ← REMOVED postedAt - use createdAt from BaseEntity instead
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", nullable = false)
@@ -87,13 +87,6 @@ public class MarketplaceItem extends BaseEntity {
     @Column(name = "is_negotiable")
     @Builder.Default
     private Boolean isNegotiable = false;
-
-    @PrePersist
-    protected void onCreate() {
-        if (postedAt == null) {
-            postedAt = LocalDateTime.now();
-        }
-    }
 
     // Helper methods
     public void incrementViewCount() {

@@ -15,9 +15,12 @@ import java.util.List;
 public interface MarketplaceItemRepository extends JpaRepository<MarketplaceItem, Long> {
     List<MarketplaceItem> findBySellerUserId(Long sellerId);
     List<MarketplaceItem> findByCategoryId(Long categoryId);
-    Page<MarketplaceItem> findByConditionStatusOrderByPostedAtDesc(MarketplaceCondition condition, Pageable pageable);
 
-    @Query("SELECT m FROM MarketplaceItem m WHERE m.deletedAt IS NULL ORDER BY m.postedAt DESC")
+    // ✅ FIXED - Changed from postedAt to createdAt
+    Page<MarketplaceItem> findByConditionStatusOrderByCreatedAtDesc(MarketplaceCondition condition, Pageable pageable);
+
+    // ✅ FIXED - Changed from postedAt to createdAt
+    @Query("SELECT m FROM MarketplaceItem m WHERE m.deletedAt IS NULL ORDER BY m.createdAt DESC")
     Page<MarketplaceItem> findAllActiveItems(Pageable pageable);
 
     @Query("SELECT m FROM MarketplaceItem m WHERE (m.title LIKE %:keyword% OR m.description LIKE %:keyword%) AND m.deletedAt IS NULL")

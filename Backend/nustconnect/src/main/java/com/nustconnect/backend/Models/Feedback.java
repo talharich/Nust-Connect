@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "feedback", indexes = {
-        @Index(name = "idx_submitted_date", columnList = "submitted_at"),
+        @Index(name = "idx_created_date", columnList = "created_at"),  // ← FIXED from submitted_at
         @Index(name = "idx_status", columnList = "status")
 })
 @Getter
