@@ -20,6 +20,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final FriendshipService friendshipService;
 
     // ==================== CREATE ====================
     public Post createPost(Long userId, Post post) {
@@ -180,8 +181,8 @@ public class PostService {
             case PUBLIC:
                 return true;
             case FRIENDS:
-                // TODO: Check if users are friends (need FriendshipService integration)
-                return false;
+                // Check if users are friends
+                return friendshipService.areFriends(post.getUser().getUserId(), userId);
             case PRIVATE:
                 return false;
             default:

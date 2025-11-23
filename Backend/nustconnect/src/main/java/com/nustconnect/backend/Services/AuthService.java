@@ -27,6 +27,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
+    private final EmailService emailService;
 
     // ==================== REGISTER ====================
     public AuthResponse register(RegisterRequest request) {
@@ -60,6 +61,13 @@ public class AuthService {
                 .build();
 
         User savedUser = userRepository.save(user);
+
+        // Send verification email
+        emailService.sendVerificationEmail(
+                savedUser.getEmail(),
+                savedUser.getName(),
+                savedUser.getVerificationToken()
+        );
 
         // Generate JWT token
         UserDetails userDetails = userDetailsService.loadUserByUsername(savedUser.getEmail());
@@ -127,6 +135,9 @@ public class AuthService {
         user.setVerificationToken(null);
         userRepository.save(user);
 
+        // Send welcome email
+        emailService.sendWelcomeEmail(user.getEmail(), user.getName());
+
         return "Email verified successfully!";
     }
 
@@ -157,9 +168,10 @@ public class AuthService {
         user.setVerificationToken(resetToken);
         userRepository.save(user);
 
-        // TODO: Send email with reset token
-        // For now, just return the token (in production, send via email)
-        return "Password reset link sent to email. Token: " + resetToken;
+        // Send password reset email
+        emailService.sendPasswordResetEmail(user.getEmail(), user.getName(), resetToken);
+
+        return "Password reset link sent to email.";
     }
 
     // ==================== RESET PASSWORD ====================
