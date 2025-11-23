@@ -16,10 +16,8 @@ public interface MarketplaceItemRepository extends JpaRepository<MarketplaceItem
     List<MarketplaceItem> findBySellerUserId(Long sellerId);
     List<MarketplaceItem> findByCategoryId(Long categoryId);
 
-    // ✅ FIXED - Changed from postedAt to createdAt
     Page<MarketplaceItem> findByConditionStatusOrderByCreatedAtDesc(MarketplaceCondition condition, Pageable pageable);
 
-    // ✅ FIXED - Changed from postedAt to createdAt
     @Query("SELECT m FROM MarketplaceItem m WHERE m.deletedAt IS NULL ORDER BY m.createdAt DESC")
     Page<MarketplaceItem> findAllActiveItems(Pageable pageable);
 
@@ -28,4 +26,7 @@ public interface MarketplaceItemRepository extends JpaRepository<MarketplaceItem
 
     @Query("SELECT m FROM MarketplaceItem m WHERE m.price BETWEEN :minPrice AND :maxPrice AND m.deletedAt IS NULL")
     List<MarketplaceItem> findByPriceRange(@Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice);
+
+    @Query("SELECT m FROM MarketplaceItem m WHERE m.conditionStatus = :condition AND m.deletedAt IS NULL ORDER BY m.createdAt DESC")
+    Page<MarketplaceItem> findByConditionStatus(@Param("condition") MarketplaceCondition condition, Pageable pageable);
 }
