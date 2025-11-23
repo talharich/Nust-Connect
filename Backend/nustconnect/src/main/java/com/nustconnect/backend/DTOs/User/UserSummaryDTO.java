@@ -1,4 +1,4 @@
-package com.nustconnect.backend.DTOs;
+package com.nustconnect.backend.DTOs.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthResponse {
-    private String token;
+public class UserSummaryDTO {
     private Long userId;
-    private String email;
     private String name;
-    private String role;
-    private String message;
+    private String profilePicture;
+    private String department;
 }
