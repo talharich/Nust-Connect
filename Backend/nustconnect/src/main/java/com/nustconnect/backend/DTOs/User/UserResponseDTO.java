@@ -1,6 +1,5 @@
-package com.nustconnect.backend.DTOs;
+package com.nustconnect.backend.DTOs.User;
 
-import com.nustconnect.backend.Enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,12 +9,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
+public class UserResponseDTO {
+    private Long userId;
     private String name;
     private String email;
-    private String password;
     private String studentId;
     private String department;
     private String phoneNumber;
-    private UserRole role;
+    private String role;
+    private Boolean isActive;
+    private Boolean isEmailVerified;
 }
