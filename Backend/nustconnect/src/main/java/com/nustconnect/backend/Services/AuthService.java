@@ -1,9 +1,9 @@
 package com.nustconnect.backend.Services;
 
-import com.nustconnect.backend.DTOs.AuthResponse;
-import com.nustconnect.backend.DTOs.ChangePasswordRequest;
-import com.nustconnect.backend.DTOs.LoginRequest;
-import com.nustconnect.backend.DTOs.RegisterRequest;
+import com.nustconnect.backend.DTOs.Auth.AuthResponse;
+import com.nustconnect.backend.DTOs.Auth.ChangePasswordRequest;
+import com.nustconnect.backend.DTOs.Auth.LoginRequest;
+import com.nustconnect.backend.DTOs.Auth.RegisterRequest;
 import com.nustconnect.backend.Enums.UserRole;
 import com.nustconnect.backend.Models.User;
 import com.nustconnect.backend.Repositories.UserRepository;
@@ -37,9 +37,9 @@ public class AuthService {
         }
 
         // Validate NUST email domain
-        if (!request.getEmail().endsWith("@nust.edu.pk")) {
-            throw new IllegalArgumentException("Only NUST email addresses are allowed");
-        }
+//        if (!request.getEmail().endsWith("@nust.edu.pk")) {
+//            throw new IllegalArgumentException("Only NUST email addresses are allowed");
+//        }
 
         // Validate student ID if provided
         if (request.getStudentId() != null && userRepository.existsByStudentId(request.getStudentId())) {
